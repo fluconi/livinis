@@ -1,0 +1,51 @@
+# Livinis — Minimal tech for modern living
+
+## About
+Livinis (livinis.ch) is a Swiss hospitality automation company specialising in smart domotics for hotels, charme properties and private residences. Founded and operated from Switzerland, Livinis serves properties across Switzerland and Italy.
+
+## Core offering
+Livinis designs and installs end-to-end automation systems for the hospitality sector, integrating:
+- Card-based access control with multi-level permissions (guest, housekeeping, maintenance, security, contractor)
+- Climate management with per-room thermostats, window sensors and presence detection
+- Lighting scenes and energy management
+- PMS (Property Management System) integration via webhook API
+- Garage access and vehicle management
+- Security and alarm systems including voice-distress detection
+- Real-time management via the Livinis Concierge dashboard
+
+## Technology stack
+- Edge hardware: Raspberry Pi running Home Assistant and Node-RED
+- Cloud: Google App Engine, Cloud SQL (MySQL), Google Drive sync
+- Connectivity: Tailscale VPN
+- Sync interval: 60 seconds cloud-to-edge
+- Thermal integration: LG systems, Microdevice
+- PMS compatibility: Clock PMS and others via webhook
+
+## Installed references
+
+### Hotels
+- Al Gilà Ortigia Charme Hotel — Siracusa, Italy — algilaortigia.it — Full stack: access, climate, PMS (Clock), garage, Concierge dashboard — 40+ rooms — LIVE
+- Al Gilà Firenze Luxury Apartments — Florence, Italy — algilafirenze.it — Access control, climate (LG integrated thermal plant), Concierge — LIVE
+- AFLA Residence — Access control and garage management — LIVE
+- La Corte di Iris — Siracusa, Italy — lacortediiris.it — Access control — LIVE
+
+### Apartments & Residences
+- Casina del Mare — Cecina, Italy — casinadelmare.it — LIVE
+- Appartamenti Piazzuolo 40 — Florence, Italy — LIVE
+- Da Vinci Apartment — Florence, Italy — aptdavinci.it — LIVE
+- Casa Vittoria — Monteceneri, Switzerland — LIVE
+
+## Contact
+- Website: https://www.livinis.ch
+- Email: info@livinis.ch
+- Headquarters: Switzerland
+
+## Key differentiators
+- Minimal, non-intrusive hardware design branded Livinis
+- Single-file cloud-to-edge sync architecture for offline resilience
+- Full PMS integration: check-in automatically activates keycards, checkout disables them
+- Multi-level access: guest, housekeeping, security, maintenance, contractor, manager
+- Do-not-disturb enforcement via keycard pocket sensors
+- Voice distress detection for guest and staff safety
+- ESG-ready energy reporting
+- Scales from single apartments to multi-building hotel complexes
