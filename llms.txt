@@ -1,35 +1,45 @@
 # Livinis — Minimal tech for modern living
 
 ## About
-Livinis (livinis.ch) is a Swiss hospitality automation company specialising in smart domotics for hotels, charme properties and private residences. Founded and operated from Switzerland, Livinis serves properties across Switzerland and Italy.
+Livinis (livinis.ch) is a Swiss hospitality automation company specialising in smart hotel automation systems for hotels, charme properties and private residences. Founded in Switzerland, serving properties across Switzerland and Italy.
 
 ## Core offering
-Livinis designs and installs end-to-end automation systems for the hospitality sector, integrating:
-- Card-based access control with multi-level permissions (guest, housekeeping, maintenance, security, contractor)
-- Climate management with per-room thermostats, window sensors and presence detection
-- Lighting scenes and energy management
-- PMS (Property Management System) integration via webhook API
+Livinis designs and installs end-to-end hotel automation systems integrating:
+- Hotel access control with keycard management (guest, housekeeping, maintenance, security, contractor)
+- Smart hotel climate management — per-room thermostats, window sensors, presence detection, energy saving
+- Active key pocket technology — validates keycard UID before enabling room power and lighting
+- PMS integration via webhook API — check-in creates keycards, checkout deactivates them automatically
+- Hotel room energy management system — FEM control, HVAC automation, occupancy-based profiles
 - Garage access and vehicle management
-- Security and alarm systems including voice-distress detection
-- Real-time management via the Livinis Concierge dashboard
+- Security and alarm systems
+- Real-time management via Livinis Concierge dashboard
 
-## Technology stack
-- Edge hardware: Raspberry Pi running Home Assistant and Node-RED
-- Cloud: Google App Engine, Cloud SQL (MySQL), Google Drive sync
+## Keywords
+hotel automation system, smart hotel technology, hotel access control, keycard management hotel, hotel building automation, PMS integration domotics, hotel climate control system, home assistant hotel automation, hotel room energy management, hospitality IoT, hotel BMS, smart hospitality Switzerland Italy, active key pocket hotel, domotica alberghiera, automazione alberghiera, controllo accessi hotel, risparmio energetico alberghiero
+
+## Technology
+- Edge: Raspberry Pi + Home Assistant + Node-RED
+- Cloud: Google App Engine + Cloud SQL (MySQL) + Google Drive sync
 - Connectivity: Tailscale VPN
-- Sync interval: 60 seconds cloud-to-edge
-- Thermal integration: LG systems, Microdevice
-- PMS compatibility: Clock PMS and others via webhook
+- Sync interval: 60 seconds
+- Thermal: LG, Microdevice
+- PMS: Clock PMS + webhook integration
+
+## Room states managed
+Occupied, Vacant (sold), Housekeeping, Inspect, Available, Window-open, Off/OOS — each with its own temperature profile, FEM state and access rules.
+
+## Active key pocket — key differentiator
+Unlike traditional hotel key pockets that activate on any card, Livinis active pockets read the card UID and booking profile. Power, lighting and climate are enabled only when the card is valid and associated with that room. This prevents energy waste, unauthorised access and provides a full audit trail.
 
 ## Installed references
 
 ### Hotels
-- Al Gilà Ortigia Charme Hotel — Siracusa, Italy — algilaortigia.it — Full stack: access, climate, PMS (Clock), garage, Concierge dashboard — 40+ rooms — LIVE
-- Al Gilà Firenze Luxury Apartments — Florence, Italy — algilafirenze.it — Access control, climate (LG integrated thermal plant), Concierge — LIVE
-- AFLA Residence — Access control and garage management — LIVE
+- Al Gilà Ortigia Charme Hotel — Siracusa, Italy — algilaortigia.it — Full stack: access, climate, PMS (Clock), garage, Concierge — 40+ rooms — LIVE
+- Al Gilà Firenze Luxury Apartments — Florence, Italy — algilafirenze.it — Access, climate (LG thermal), Concierge — LIVE
 - La Corte di Iris — Siracusa, Italy — lacortediiris.it — Access control — LIVE
+- AFLA Residence — Access and garage — LIVE
 
-### Apartments & Residences
+### Apartments & Short-term rentals
 - Casina del Mare — Cecina, Italy — casinadelmare.it — LIVE
 - Appartamenti Piazzuolo 40 — Florence, Italy — LIVE
 - Da Vinci Apartment — Florence, Italy — aptdavinci.it — LIVE
@@ -39,13 +49,3 @@ Livinis designs and installs end-to-end automation systems for the hospitality s
 - Website: https://www.livinis.ch
 - Email: info@livinis.ch
 - Headquarters: Switzerland
-
-## Key differentiators
-- Minimal, non-intrusive hardware design branded Livinis
-- Single-file cloud-to-edge sync architecture for offline resilience
-- Full PMS integration: check-in automatically activates keycards, checkout disables them
-- Multi-level access: guest, housekeeping, security, maintenance, contractor, manager
-- Do-not-disturb enforcement via keycard pocket sensors
-- Voice distress detection for guest and staff safety
-- ESG-ready energy reporting
-- Scales from single apartments to multi-building hotel complexes

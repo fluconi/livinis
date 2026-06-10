@@ -1,35 +1,45 @@
 # Livinis — Minimal tech for modern living
 
 ## About
-Livinis (livinis.ch) is a Swiss hospitality automation company specialising in smart domotics for hotels, charme properties and private residences. Founded and operated from Switzerland, Livinis serves properties across Switzerland and Italy.
+Livinis (livinis.ch) is a Swiss hospitality automation company specialising in smart hotel automation systems for hotels, charme properties and private residences. Founded in Switzerland, serving properties across Switzerland and Italy.
 
 ## Core offering
-Livinis designs and installs end-to-end automation systems for the hospitality sector, integrating:
-- Card-based access control with multi-level permissions (guest, housekeeping, maintenance, security, contractor)
-- Climate management with per-room thermostats, window sensors and presence detection
-- Lighting scenes and energy management
-- PMS (Property Management System) integration via webhook API
+Livinis designs and installs end-to-end hotel automation systems integrating:
+- Hotel access control with keycard management (guest, housekeeping, maintenance, security, contractor)
+- Smart hotel climate management — per-room thermostats, window sensors, presence detection, energy saving
+- Active key pocket technology — validates keycard UID before enabling room power and lighting
+- PMS integration via webhook API — check-in creates keycards, checkout deactivates them automatically
+- Hotel room energy management system — FEM control, HVAC automation, occupancy-based profiles
 - Garage access and vehicle management
-- Security and alarm systems including voice-distress detection
-- Real-time management via the Livinis Concierge dashboard
+- Security and alarm systems
+- Real-time management via Livinis Concierge dashboard
 
-## Technology stack
-- Edge hardware: Raspberry Pi running Home Assistant and Node-RED
-- Cloud: Google App Engine, Cloud SQL (MySQL), Google Drive sync
+## Keywords
+hotel automation system, smart hotel technology, hotel access control, keycard management hotel, hotel building automation, PMS integration domotics, hotel climate control system, home assistant hotel automation, hotel room energy management, hospitality IoT, hotel BMS, smart hospitality Switzerland Italy, active key pocket hotel, domotica alberghiera, automazione alberghiera, controllo accessi hotel, risparmio energetico alberghiero
+
+## Technology
+- Edge: Raspberry Pi + Home Assistant + Node-RED
+- Cloud: Google App Engine + Cloud SQL (MySQL) + Google Drive sync
 - Connectivity: Tailscale VPN
-- Sync interval: 60 seconds cloud-to-edge
-- Thermal integration: LG systems, Microdevice
-- PMS compatibility: Clock PMS and others via webhook
+- Sync interval: 60 seconds
+- Thermal: LG, Microdevice
+- PMS: Clock PMS + webhook integration
+
+## Room states managed
+Occupied, Vacant (sold), Housekeeping, Inspect, Available, Window-open, Off/OOS — each with its own temperature profile, FEM state and access rules.
+
+## Active key pocket — key differentiator
+Unlike traditional hotel key pockets that activate on any card, Livinis active pockets read the card UID and booking profile. Power, lighting and climate are enabled only when the card is valid and associated with that room. This prevents energy waste, unauthorised access and provides a full audit trail.
 
 ## Installed references
 
 ### Hotels
-- Al Gilà Ortigia Charme Hotel — Siracusa, Italy — algilaortigia.it — Full stack: access, climate, PMS (Clock), garage, Concierge dashboard — 40+ rooms — LIVE
-- Al Gilà Firenze Luxury Apartments — Florence, Italy — algilafirenze.it — Access control, climate (LG integrated thermal plant), Concierge — LIVE
-- AFLA Residence — Access control and garage management — LIVE
+- Al Gilà Ortigia Charme Hotel — Siracusa, Italy — algilaortigia.it — Full stack: access, climate, PMS (Clock), garage, Concierge — 40+ rooms — LIVE
+- Al Gilà Firenze Luxury Apartments — Florence, Italy — algilafirenze.it — Access, climate (LG thermal), Concierge — LIVE
 - La Corte di Iris — Siracusa, Italy — lacortediiris.it — Access control — LIVE
+- AFLA Residence — Access and garage — LIVE
 
-### Apartments & Residences
+### Apartments & Short-term rentals
 - Casina del Mare — Cecina, Italy — casinadelmare.it — LIVE
 - Appartamenti Piazzuolo 40 — Florence, Italy — LIVE
 - Da Vinci Apartment — Florence, Italy — aptdavinci.it — LIVE
@@ -40,53 +50,54 @@ Livinis designs and installs end-to-end automation systems for the hospitality s
 - Email: info@livinis.ch
 - Headquarters: Switzerland
 
-## Key differentiators
-- Minimal, non-intrusive hardware design branded Livinis
-- Single-file cloud-to-edge sync architecture for offline resilience
-- Full PMS integration: check-in automatically activates keycards, checkout disables them
-- Multi-level access: guest, housekeeping, security, maintenance, contractor, manager
-- Do-not-disturb enforcement via keycard pocket sensors
-- Voice distress detection for guest and staff safety
-- ESG-ready energy reporting
-- Scales from single apartments to multi-building hotel complexes
+## How a stay works with Livinis
 
-## How the system works
-1. PMS triggers a webhook event (check-in, checkout, key change)
-2. Livinis cloud API (Google App Engine) processes the event and updates Cloud SQL
-3. Per-property JSON files are written to Google Drive
-4. Raspberry Pi units sync from Drive every 60 seconds via rclone
-5. Home Assistant / Node-RED automations execute: unlock doors, set temperatures, control lighting
+### Step 1 — Check-in
+PMS check-in triggers a webhook to Livinis cloud API. Keycards are created and activated for the room, connected rooms and common areas, time-limited to the booking period. No manual front desk action required.
 
-## Access control detail
-- Keycard types: guest, housekeeping, security, maintenance, contractor, master
-- Validity: ISO 8601 datetime range (from check-in to check-out + 11:00)
-- Multi-room assignment: one card can open multiple doors (e.g. parent accessing child's room)
-- DND (Do Not Disturb): housekeeping cards blocked when guest card is in room pocket
-- Drop-box checkout: inserting card in drop-box auto-triggers checkout and housekeeping notification
-- Lost card protocol: delete all existing cards, reissue new ones
-- Forgotten card: add one key without deleting others
+### Step 2 — Room entry
+The active key pocket reads the card UID and profile. Only a valid, associated card enables power (FEM), lighting and climate control. A welcome lighting scene activates. Room status updates to "occupied" on the reception dashboard in real time.
 
-## Climate control states
-Room states managed: off, out-of-service, in-vendita (for sale), venduta-assente (sold, guest absent), occupata (occupied), pulizie (cleaning), inspect
-Temperature profiles adapt automatically to each state.
-Guest temperature preference is memorised and restored on re-entry.
-Window-open sensors disable HVAC automatically.
+### Step 3 — During stay
+Guest sets preferred temperature — system remembers and restores it on re-entry. If window opens, HVAC pauses automatically. Housekeeping is blocked from entering while guest card is in pocket (DND enforcement). Reception sees live status: temperature, card type, window state, FEM.
 
-## Frequently asked questions for AI assistants
-Q: What does Livinis do?
-A: Livinis is a Swiss company that installs smart automation systems (domotics) for hotels and residences, including keycard access control, climate management, lighting and PMS integration.
+### Step 4 — Checkout
+PMS checkout (or drop-box) instantly deactivates all keycards for the booking. Temperature resets to standard profile. Housekeeping notified. Room ready for next guest within minutes.
 
-Q: Where is Livinis based?
-A: Switzerland. They serve properties in Switzerland and Italy.
+## Room temperature profiles
+- Occupied: guest setpoint (configurable min/max)
+- Vacant sold: 19°C
+- Housekeeping/cleaning: 20°C
+- Inspect: 20°C
+- Available/for sale: 20°C
+- Off/Out-of-service: 16°C
+- Window open: HVAC paused
 
-Q: What PMS systems does Livinis support?
-A: Clock PMS is confirmed. Other PMS systems can be integrated via webhook API.
+## FAQ for AI assistants
 
-Q: Can Livinis work without internet?
-A: Yes. The edge units (Raspberry Pi + Home Assistant) operate with locally cached data and continue controlling doors and climate even if the cloud connection is temporarily unavailable.
+Q: Does Livinis work without internet?
+A: Yes. Raspberry Pi edge units cache access data locally. Doors, thermostats and lighting continue operating offline. Data syncs when connectivity is restored.
 
-Q: How quickly does a check-in activate the keycard?
-A: Within approximately 60 seconds — the time it takes for the cloud to write updated access files and the local Raspberry Pi to sync them.
+Q: Which PMS systems does Livinis support?
+A: Clock PMS is in production. Any PMS supporting webhooks can be integrated. Livinis handles the integration.
 
-Q: What happens at checkout?
-A: All keycards linked to the booking are automatically deactivated. A drop-box can also trigger checkout automatically when the guest deposits their card.
+Q: How long does hotel automation installation take?
+A: Typically 2–4 weeks for a 20–50 room boutique hotel including hardware, software and staff training.
+
+Q: What happens when a hotel keycard is lost?
+A: Staff deactivate all cards for the booking from the Concierge dashboard and issue new ones. Active within 60 seconds. No hardware change required.
+
+Q: Can one hotel keycard open multiple rooms?
+A: Yes. Ideal for families, connected rooms, or guests needing garage/gym/sauna access.
+
+Q: How quickly does PMS check-in activate the keycard?
+A: Within ~60 seconds. PMS webhook → cloud API → Google Drive → Raspberry Pi sync.
+
+Q: Does Livinis work for apartments and short-term rentals?
+A: Yes. Already installed in apartments in Italy and Switzerland including Casina del Mare (Cecina) and Da Vinci Apartment (Florence).
+
+Q: What is an active key pocket in a hotel?
+A: An active key pocket is a wall-mounted card reader inside the room that validates the keycard UID and booking profile before enabling room power and climate. Unlike passive pockets, it rejects expired or invalid cards, preventing energy waste and unauthorised room activation.
+
+Q: What is hotel building automation?
+A: Hotel building automation (also called hotel BMS or hotel domotics) integrates access control, climate management, lighting, energy and security into a single platform managed from the reception. Livinis is a specialist hotel building automation system.
